@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
 
 const PRODUCTS_URL = `${process.env.REACT_APP_API_ENDPOINT}/products`;
+const INITIAL_PRODUCTS = { products: [], total: 0 };
 
-const useProducts = (init = {}) => {
-  const [products, setProducts] = useState(init.products);
-  const [loading, setLoading] = useState(init.loading);
+const useProducts = (initial = INITIAL_PRODUCTS) => {
+  const [products, setProducts] = useState(initial.products);
+  const [loading, setLoading] = useState(initial.loading);
 
   useEffect(() => {
     setLoading(true);
     fetch(PRODUCTS_URL)
       .then(res => res.json())
-      .then(data => {
-        setProducts(data);
+      .then(({ items }) => {
+        setProducts(items);
         setLoading(false);
       });
   }, []);
 
-  return { products, productsLoading: loading };
+  return { products, loading };
 };
 
 export default useProducts;
