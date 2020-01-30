@@ -4,25 +4,24 @@ const useCart = initial => {
   const [products, setProducts] = useState(initial.products);
   const [total, setTotal] = useState(initial.total);
   const [productsCount, setProductsCount] = useState(initial.productsCount);
-  console.log(productsCount);
+  console.log(products);
   const addProduct = useCallback(
     product => {
       const sameProductInCart = products.find(({ id }) => id === product.id);
-      if (!products.length || !sameProductInCart) {
-        setProducts(prevProducts => [...prevProducts, { ...product }]);
+      let productsToInsert;
+
+      if (!sameProductInCart) {
+        productsToInsert = [...products, product];
       } else {
-        // item already was in cart
-        const productWithNewQuantity = {
-          ...sameProductInCart,
-          quantity: product.quantity + sameProductInCart.quantity
-        };
-
-        const productsWithoutSame = products.filter(
-          ({ id }) => id !== product.id
-        );
-
-        setProducts([...productsWithoutSame, productWithNewQuantity]);
+        productsToInsert = products.map(p => {
+          if (p.id === product.id) {
+            p.quantity += product.quantity;
+          }
+          return p;
+        });
       }
+
+      setProducts(productsToInsert);
     },
     [products]
   );
