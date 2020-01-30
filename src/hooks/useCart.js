@@ -2,19 +2,27 @@ import { useState, useEffect, useCallback } from "react";
 
 const useCart = initial => {
   const [products, setProducts] = useState(initial.products);
-  const [total, setTotal] = useState(0);
-
+  const [total, setTotal] = useState(initial.total);
+  const [productsCount, setProductsCount] = useState(initial.productsCount);
+  console.log(productsCount);
   const addProduct = useCallback(
     product => {
-      // item already was in cart
-      const { quantity } = products.find(({ id }) => id === product.id);
+      const sameProductInCart = products.find(({ id }) => id === product.id);
+      if (!products.length || !sameProductInCart) {
+        setProducts(prevProducts => [...prevProducts, { ...product }]);
+      } else {
+        // item already was in cart
+        const productWithNewQuantity = {
+          ...sameProductInCart,
+          quantity: product.quantity + sameProductInCart.quantity
+        };
 
-      const productToAdd = {
-        ...product,
-        quantity: (quantity || 0) + product.quantity
-      };
+        const productsWithoutSame = products.filter(
+          ({ id }) => id !== product.id
+        );
 
-      setProducts({ ...products, productToAdd });
+        setProducts([...productsWithoutSame, productWithNewQuantity]);
+      }
     },
     [products]
   );
@@ -28,12 +36,25 @@ const useCart = initial => {
 
   useEffect(() => {
     setTotal(
-      products.reduce((totals, { price, quantity }) => price * quantity, 0)
+      products.reduce(
+        (totals, { price, quantity }) => totals + price * quantity,
+        initial.total
+      )
     );
-  }, [products]);
+  }, [products, initial.total]);
+
+  useEffect(() => {
+    setProductsCount(
+      products.reduce(
+        (count, { quantity }) => count + quantity,
+        initial.productsCount
+      )
+    );
+  }, [products, initial.productsCount]);
 
   return {
     cartProducts: products,
+    cartProductsCount: productsCount,
     addProduct,
     deleteProduct,
     total
