@@ -13,6 +13,8 @@ const useSingleProduct = id => {
       .then(res => res.json())
       .then(data => {
         setProduct(data);
+      })
+      .finally(() => {
         setLoading(false);
       });
   }, [id]);

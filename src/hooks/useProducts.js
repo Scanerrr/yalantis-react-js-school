@@ -13,6 +13,8 @@ const useProducts = (initial = INITIAL_PRODUCTS) => {
       .then(res => res.json())
       .then(({ items }) => {
         setProducts(items);
+      })
+      .finally(() => {
         setLoading(false);
       });
   }, []);
