@@ -4,7 +4,7 @@ const useCart = initial => {
   const [products, setProducts] = useState(initial.products);
   const [total, setTotal] = useState(initial.total);
   const [productsCount, setProductsCount] = useState(initial.productsCount);
-  console.log(products);
+
   const addProduct = useCallback(
     product => {
       const sameProductInCart = products.find(({ id }) => id === product.id);
