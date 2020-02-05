@@ -4,9 +4,9 @@ import useProducts from "../hooks/useProducts";
 import ProductsList from "../components/ProductsList";
 
 const ProductsPage = props => {
-  const { products, loading } = useProducts();
+  const { products } = useProducts();
 
-  if (!products.length || loading) {
+  if (!products.length) {
     return <Loader />;
   }
 
