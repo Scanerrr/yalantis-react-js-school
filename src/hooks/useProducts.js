@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsSuccess } from "../store/products/actions";
-import { selectProductsList } from "../store/selectors";
+import { selectProductsList } from "../store/products/selectors";
 import { getProducts } from "../api";
 import { normalize } from "../utils/normalize";
 

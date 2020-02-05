@@ -1,6 +1,5 @@
 import { GET_PRODUCTS_SUCCESS } from "./actionTypes";
 
-//TODO: implement
 export const INITIAL_STATE = {
   byId: {},
   allIds: []

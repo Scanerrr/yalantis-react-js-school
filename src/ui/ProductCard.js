@@ -5,8 +5,8 @@ import useAddToCartHandler from "../hooks/useAddToCartHandler";
 import AddToCartForm from "../components/AddToCartForm";
 
 const ProductCard = ({ product }) => {
-  const { handleAddToCart } = useAddToCartHandler(product);
   const { id, name, price } = product;
+  const { handleAddToCart } = useAddToCartHandler(id);
   return (
     <Card
       size="small"
@@ -16,10 +16,7 @@ const ProductCard = ({ product }) => {
       <p>
         Price: <strong>${price}</strong>
       </p>
-      <AddToCartForm
-        productId={product.id}
-        transitProductQuantity={handleAddToCart}
-      />
+      <AddToCartForm productId={id} transitProductQuantity={handleAddToCart} />
     </Card>
   );
 };
