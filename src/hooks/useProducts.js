@@ -1,25 +1,33 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductsSuccess } from "../store/products/actions";
+import { selectProductsList } from "../store/selectors";
+import { getProducts } from "../api";
+import { normalize } from "../utils/normalize";
 
-const PRODUCTS_URL = `${process.env.REACT_APP_API_ENDPOINT}/products`;
-const INITIAL_PRODUCTS = { products: [], total: 0 };
-
-const useProducts = (initial = INITIAL_PRODUCTS) => {
-  const [products, setProducts] = useState(initial.products);
-  const [loading, setLoading] = useState(initial.loading);
+const useProducts = () => {
+  const dispatch = useDispatch();
+  const products = useSelector(selectProductsList);
 
   useEffect(() => {
-    setLoading(true);
-    fetch(PRODUCTS_URL)
-      .then(res => res.json())
-      .then(({ items }) => {
-        setProducts(items);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+    if (!products.length) {
+      getProducts()
+        .then(({ items }) => {
+          const productsToSave = normalize(items);
+          dispatch(getProductsSuccess(productsToSave));
+        })
+        .catch(error => {
+          console.error("Couldn't fetch products");
+        });
+    }
+  }, [dispatch, products.length]);
 
-  return { products, loading };
+  return useMemo(
+    () => ({
+      products
+    }),
+    [products]
+  );
 };
 
 export default useProducts;

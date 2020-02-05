@@ -1,5 +1,5 @@
-import { GET_PRODUCTS } from "./actionTypes";
+import { GET_PRODUCTS_SUCCESS } from "./actionTypes";
 
-export function getProducts(data) {
-  return { type: GET_PRODUCTS, ...data };
+export function getProductsSuccess(data) {
+  return { type: GET_PRODUCTS_SUCCESS, ...data };
 }

@@ -1,16 +1,21 @@
-import { GET_PRODUCTS } from "./actionTypes";
+import { GET_PRODUCTS_SUCCESS } from "./actionTypes";
 
 //TODO: implement
 export const INITIAL_STATE = {
   byId: {},
-  allIDs: []
+  allIds: []
 };
 
 const productsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case GET_PRODUCTS:
+    case GET_PRODUCTS_SUCCESS:
       return {
-        ...state
+        ...state,
+        byId: {
+          ...state.byId,
+          ...action.byId
+        },
+        allIds: [...state.allIds, ...action.allIds]
       };
 
     default:
