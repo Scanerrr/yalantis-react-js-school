@@ -1,18 +1,17 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Row } from "antd";
-import CartProvider from "../context/CartProvider";
-import Header from "../ui/Header";
 import HomePage from "../pages/HomePage";
 import ProductsPage from "../pages/ProductsPage";
 import SingleProductPage from "../pages/SingleProductPage";
 import CartPage from "../pages/CartPage";
+import HeaderContainer from "./HeaderContainer";
 
 function App() {
   return (
-    <CartProvider>
+    <>
       <Router>
-        {/* <Header /> */}
+        <HeaderContainer />
         <div style={{ padding: "30px" }}>
           <Row gutter={[16, 16]}>
             <Switch>
@@ -32,7 +31,7 @@ function App() {
           </Row>
         </div>
       </Router>
-    </CartProvider>
+    </>
   );
 }
 

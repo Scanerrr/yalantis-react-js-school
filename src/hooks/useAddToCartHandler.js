@@ -1,11 +1,11 @@
-import { useContext } from "react";
-import { CartContext } from "../context/CartProvider";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../store/cart/actions";
 
-const useAddToCartHandler = product => {
-  const { addProduct } = useContext(CartContext);
+const useAddToCartHandler = productId => {
+  const dispatch = useDispatch();
 
   const handleAddToCart = quantity => {
-    addProduct({ ...product, quantity });
+    dispatch(addProduct(productId, quantity));
   };
 
   return {

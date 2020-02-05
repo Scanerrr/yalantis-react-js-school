@@ -9,7 +9,7 @@ import AddToCartForm from "../components/AddToCartForm";
 const SingleProductPage = props => {
   const { id } = useParams();
   const { product, loading } = useSingleProduct(id);
-  const { handleAddToCart } = useAddToCartHandler(product);
+  const { handleAddToCart } = useAddToCartHandler(product.id);
 
   if (!product || loading) {
     return <Loader />;

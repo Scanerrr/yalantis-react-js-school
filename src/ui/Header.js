@@ -1,17 +1,11 @@
-import React, { useContext } from "react";
-import { Link, useLocation, useRouteMatch } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import { Menu, Icon, Popover, Typography } from "antd";
 import CartWidget from "./CartWidget";
-import { CartContext } from "../context/CartProvider";
 
-const Header = props => {
-  const { pathname } = useLocation();
-  const matchCart = useRouteMatch("/cart");
-
-  const { cartProductsCount, total } = useContext(CartContext);
-  if (!!matchCart) return null;
+const Header = ({ selectedPathName, cartProductsCount, total }) => {
   return (
-    <Menu mode="horizontal" selectedKeys={[pathname]}>
+    <Menu mode="horizontal" selectedKeys={[selectedPathName]}>
       <Menu.Item key="/">
         <Link to="/">
           <Icon type="home" />
