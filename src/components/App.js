@@ -12,7 +12,7 @@ function App() {
   return (
     <CartProvider>
       <Router>
-        <Header />
+        {/* <Header /> */}
         <div style={{ padding: "30px" }}>
           <Row gutter={[16, 16]}>
             <Switch>
