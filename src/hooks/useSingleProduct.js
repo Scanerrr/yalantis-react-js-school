@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-
-const SINGLE_PRODUCT_URL = `${process.env.REACT_APP_API_ENDPOINT}/products`;
+import { getSingleProduct } from "../api";
 const INITIAL_VALUE = { product: null, loading: false };
 
 const useSingleProduct = id => {
@@ -9,8 +8,7 @@ const useSingleProduct = id => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(SINGLE_PRODUCT_URL + `/${id}`)
-      .then(res => res.json())
+    getSingleProduct(id)
       .then(data => {
         setProduct(data);
       })
