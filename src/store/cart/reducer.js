@@ -13,22 +13,23 @@ export const INITIAL_STATE = {
 // ?TODO: is there a way to better implementation??
 function addProduct(state, action) {
   const { product, quantity } = action;
-  const isProductInCart = !!state.allIds.find(id => id === product.id);
-  const updatedProductQuantity = isProductInCart
-    ? state.byId[product.id].quantity + quantity
-    : quantity;
+  const isProductInCart = !!state.byId[product.id];
+  if (isProductInCart) {
+    return updateProduct(state, {
+      id: product.id,
+      quantity: state.byId[product.id].quantity + quantity
+    });
+  }
   return {
     ...state,
     byId: {
       ...state.byId,
       [product.id]: {
         ...product,
-        quantity: updatedProductQuantity
+        quantity
       }
     },
-    allIds: [...state.allIds, isProductInCart ? null : product.id].filter(
-      Boolean
-    )
+    allIds: [...state.allIds, product.id]
   };
 }
 
