@@ -1,5 +1,4 @@
 import { createSelector } from "reselect";
-import { selectProductsEntities } from "../products/selectors";
 
 export const selectCart = state => state.cart;
 
@@ -19,11 +18,11 @@ export const selectCartProductsList = createSelector(
 );
 
 export const selectCartProducts = createSelector(
-  [selectProductsEntities, selectCartEntities, selectCartProductsIds],
-  (products, cartProducts, cartProductsIds = []) =>
-    cartProductsIds.map(productId => ({
+  [selectCartEntities, selectCartProductsIds],
+  (products, productsIds = []) =>
+    productsIds.map(productId => ({
       ...products[productId],
-      quantity: cartProducts[productId].quantity
+      quantity: products[productId].quantity
     }))
 );
 

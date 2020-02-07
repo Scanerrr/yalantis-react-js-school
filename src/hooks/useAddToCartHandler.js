@@ -1,12 +1,18 @@
+import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../store/cart/actions";
 
-const useAddToCartHandler = productId => {
+const useAddToCartHandler = product => {
   const dispatch = useDispatch();
 
-  const handleAddToCart = quantity => {
-    dispatch(addProduct(productId, quantity));
-  };
+  const handleAddToCart = useCallback(
+    quantity => {
+      if (product) {
+        dispatch(addProduct(product, quantity));
+      }
+    },
+    [dispatch, product]
+  );
 
   return {
     handleAddToCart

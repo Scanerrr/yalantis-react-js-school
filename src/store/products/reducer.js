@@ -9,12 +9,10 @@ const productsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case GET_PRODUCTS_SUCCESS:
       return {
-        ...state,
         byId: {
-          ...state.byId,
           ...action.byId
         },
-        allIds: [...state.allIds, ...action.allIds]
+        allIds: [...action.allIds]
       };
 
     default:

@@ -1,12 +1,12 @@
 import React from "react";
 import { Card } from "antd";
 import { Link } from "react-router-dom";
-import useAddToCartHandler from "../hooks/useAddToCartHandler";
-import AddToCartForm from "../components/AddToCartForm";
+import useAddToCartHandler from "../../../hooks/useAddToCartHandler";
+import AddToCartForm from "../../../containers/AddToCartForm";
 
 const ProductCard = ({ product }) => {
   const { id, name, price } = product;
-  const { handleAddToCart } = useAddToCartHandler(id);
+  const { handleAddToCart } = useAddToCartHandler(product);
   return (
     <Card
       size="small"

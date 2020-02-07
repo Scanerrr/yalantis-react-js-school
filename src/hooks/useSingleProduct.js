@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { getSingleProduct } from "../api";
 const INITIAL_VALUE = { product: null, loading: false };
 
@@ -17,7 +17,13 @@ const useSingleProduct = id => {
       });
   }, [id]);
 
-  return { product, loading };
+  return useMemo(
+    () => ({
+      product,
+      loading
+    }),
+    [product, loading]
+  );
 };
 
 export default useSingleProduct;

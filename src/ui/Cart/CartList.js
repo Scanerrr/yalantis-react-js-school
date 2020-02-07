@@ -1,8 +1,9 @@
 import React from "react";
 import { List, Icon } from "antd";
 import { Link } from "react-router-dom";
+import CartQuantity from "./CartQuantity";
 
-const CartList = ({ list, deleteItem }) => {
+const CartList = ({ list, deleteItem, updateItem }) => {
   return (
     <List
       itemLayout="horizontal"
@@ -20,7 +21,13 @@ const CartList = ({ list, deleteItem }) => {
           >
             <List.Item.Meta
               title={<Link to={`/products/${id}`}>{name}</Link>}
-              description={`Quantity: ${quantity}`}
+              description={
+                <CartQuantity
+                  productId={id}
+                  quantity={quantity}
+                  onChange={updateItem}
+                />
+              }
             />
 
             <div>

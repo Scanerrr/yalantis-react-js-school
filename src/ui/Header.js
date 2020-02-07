@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Menu, Icon, Popover, Typography } from "antd";
-import CartWidget from "./CartWidget";
+import CartWidget from "./Cart/CartWidget";
 
 const Header = ({ selectedPathName, cartProductsCount, total }) => {
   return (

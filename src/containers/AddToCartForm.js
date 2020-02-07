@@ -13,7 +13,7 @@ function AddToCartFormImpl({ form, transitProductQuantity, productId }) {
     <Form layout="inline" onSubmit={handleSubmit}>
       <Form.Item label="Quantity">
         {getFieldDecorator(`quantity-${productId}`, { initialValue: 1 })(
-          <InputNumber ref min={1} max={100} />
+          <InputNumber min={1} max={100} />
         )}
       </Form.Item>
       <Form.Item>

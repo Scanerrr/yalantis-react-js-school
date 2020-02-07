@@ -1,24 +1,48 @@
-import { ADD_PRODUCT, DELETE_PRODUCT, CLEAR_CART } from "./actionTypes";
+import {
+  ADD_PRODUCT,
+  DELETE_PRODUCT,
+  CLEAR_CART,
+  UPDATE_PRODUCT
+} from "./actionTypes";
 
 export const INITIAL_STATE = {
   byId: {},
   allIds: []
 };
 
+// ?TODO: is there a way to better implementation??
 function addProduct(state, action) {
-  const isProductInCart = !!state.allIds.find(id => id === action.id);
+  const { product, quantity } = action;
+  const isProductInCart = !!state.allIds.find(id => id === product.id);
   const updatedProductQuantity = isProductInCart
-    ? state.byId[action.id].quantity + action.quantity
-    : action.quantity;
+    ? state.byId[product.id].quantity + quantity
+    : quantity;
   return {
     ...state,
     byId: {
       ...state.byId,
-      [action.id]: { quantity: updatedProductQuantity }
+      [product.id]: {
+        ...product,
+        quantity: updatedProductQuantity
+      }
     },
-    allIds: [...state.allIds, isProductInCart ? null : action.id].filter(
+    allIds: [...state.allIds, isProductInCart ? null : product.id].filter(
       Boolean
     )
+  };
+}
+
+function updateProduct(state, action) {
+  const { id, quantity } = action;
+  return {
+    ...state,
+    byId: {
+      ...state.byId,
+      [id]: {
+        ...state.byId[id],
+        quantity
+      }
+    }
   };
 }
 
@@ -35,6 +59,8 @@ const cartReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_PRODUCT:
       return addProduct(state, action);
+    case UPDATE_PRODUCT:
+      return updateProduct(state, action);
     case DELETE_PRODUCT:
       return deleteProduct(state, action);
     case CLEAR_CART:
