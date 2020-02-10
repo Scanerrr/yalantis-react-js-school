@@ -9,7 +9,7 @@ export const PRODUCTS_FILTER = {
   maxPrice: "maxPrice"
 };
 
-export const getProducts = (query = "") => {
+export const fetchProducts = (query = "") => {
   return fetch(PRODUCTS_URL + query)
     .then(res => res.json())
     .catch(error => {
@@ -17,7 +17,7 @@ export const getProducts = (query = "") => {
     });
 };
 
-export const getSingleProduct = id =>
+export const fetchSingleProduct = id =>
   fetch(SINGLE_PRODUCT_URL + `/${id}`)
     .then(res => res.json())
     .catch(error => {
