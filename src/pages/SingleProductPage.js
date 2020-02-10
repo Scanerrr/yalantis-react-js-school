@@ -8,10 +8,10 @@ import AddToCartForm from "../containers/AddToCartForm";
 
 const SingleProductPage = props => {
   const { id } = useParams();
-  const { product, loading } = useSingleProduct(id);
+  const { product } = useSingleProduct(id);
   const { handleAddToCart } = useAddToCartHandler(product);
-
-  if (!product || loading) {
+  console.log(product);
+  if (!product) {
     return <Loader />;
   }
 
