@@ -10,7 +10,7 @@ const SingleProductPage = props => {
   const { id } = useParams();
   const { product } = useSingleProduct(id);
   const { handleAddToCart } = useAddToCartHandler(product);
-  console.log(product);
+
   if (!product) {
     return <Loader />;
   }
