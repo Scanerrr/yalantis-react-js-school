@@ -4,14 +4,8 @@ import { Pagination } from "antd";
 import { PRODUCTS_FILTER } from "../../api";
 import { selectFilter } from "../../store/filter/selector";
 import { updateFilter } from "../../store/filter/actions";
-import { selectProductsIds } from "../../store/products/selectors";
 
-const PaginationContainer = ({
-  filter,
-  currentPage,
-  perPage,
-  productsLength
-}) => {
+const PaginationContainer = ({ filter, perPage, currentPage, totalItems }) => {
   const filterCurrentPage = value => {
     filter({
       [PRODUCTS_FILTER.page]: value
@@ -22,7 +16,8 @@ const PaginationContainer = ({
       <Pagination
         current={currentPage}
         onChange={filterCurrentPage}
-        total={productsLength}
+        pageSize={perPage}
+        total={totalItems}
       />
     </div>
   );
@@ -31,8 +26,7 @@ const PaginationContainer = ({
 const mapStateToProps = state => ({
   currentPage: selectFilter(state).page,
   perPage: selectFilter(state).perPage,
-  // TODO: change getting total items from API
-  productsLength: selectProductsIds(state).length
+  totalItems: selectFilter(state).totalItems
 });
 
 const mapDispatchToProps = {
