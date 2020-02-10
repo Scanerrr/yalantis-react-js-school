@@ -1,25 +1,36 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductsSuccess } from "../store/products/actions";
+import { selectProductsList } from "../store/products/selectors";
+import { updateFilter } from "../store/filter/actions";
+import { fetchProducts } from "../api";
+import { normalize } from "../utils/normalize";
+import { selectFilterAsQuery } from "../store/filter/selector";
 
-const PRODUCTS_URL = `${process.env.REACT_APP_API_ENDPOINT}/products`;
-const INITIAL_PRODUCTS = { products: [], total: 0 };
-
-const useProducts = (initial = INITIAL_PRODUCTS) => {
-  const [products, setProducts] = useState(initial.products);
-  const [loading, setLoading] = useState(initial.loading);
+const useProducts = () => {
+  const dispatch = useDispatch();
+  const products = useSelector(selectProductsList);
+  const query = useSelector(selectFilterAsQuery);
 
   useEffect(() => {
-    setLoading(true);
-    fetch(PRODUCTS_URL)
-      .then(res => res.json())
-      .then(({ items }) => {
-        setProducts(items);
+    fetchProducts("?" + query)
+      .then(({ totalItems, items }) => {
+        const productsToSave = normalize(items);
+        dispatch(getProductsSuccess(productsToSave));
+        dispatch(updateFilter({ totalItems }));
       })
-      .finally(() => {
-        setLoading(false);
+      .catch(error => {
+        console.error("Couldn't fetch products");
+        console.error(error);
       });
-  }, []);
+  }, [dispatch, query]);
 
-  return { products, loading };
+  return useMemo(
+    () => ({
+      products
+    }),
+    [products]
+  );
 };
 
 export default useProducts;
