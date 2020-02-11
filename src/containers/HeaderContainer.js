@@ -6,7 +6,7 @@ import {
   selectCartTotal
 } from "../store/cart/selectors";
 import Header from "../ui/Header";
-import AddProductModal from "./AddProductModal";
+import ProductModal from "./Products/ProductModal";
 import useModal from "../hooks/useModal";
 
 const HeaderContainer = ({ cartProductsCount, total }) => {
@@ -24,7 +24,7 @@ const HeaderContainer = ({ cartProductsCount, total }) => {
         total={total}
         showModal={toggleModal}
       />
-      <AddProductModal visible={isModalOpen} onCancel={toggleModal} />
+      <ProductModal visible={isModalOpen} onCancel={toggleModal} />
     </>
   );
 };
