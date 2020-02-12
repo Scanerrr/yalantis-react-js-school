@@ -8,9 +8,9 @@ import Select from "../../ui/Form/Select";
 
 const { Option } = ASelect;
 
-const ProductForm = props => {
+const ProductForm = ({ handleSubmit, pristine, submitting, ...props }) => {
   return (
-    <Form onSubmit={() => {}}>
+    <Form onSubmit={handleSubmit}>
       <FormSection name="product">
         <Field
           label="Title"
@@ -19,12 +19,13 @@ const ProductForm = props => {
           placeholder="Iphone Z"
         />
         <Row type="flex" justify="space-between">
-          <Col span="4">
+          <Col span={4}>
             <Field
               label="Price"
               name="price"
               component={InputNumber}
               placeholder="999"
+              parse={Number}
               // min={0}
             />
           </Col>
@@ -43,7 +44,11 @@ const ProductForm = props => {
 
         <Row type="flex" justify="end">
           <Form.Item>
-            <Button htmlType="submit" type="primary" disabled={false}>
+            <Button
+              disabled={pristine || submitting}
+              htmlType="submit"
+              type="primary"
+            >
               Publish
             </Button>
           </Form.Item>

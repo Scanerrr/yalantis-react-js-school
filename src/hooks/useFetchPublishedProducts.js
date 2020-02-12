@@ -1,19 +1,19 @@
 import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsSuccess } from "../store/products/actions";
-import { selectProductsList } from "../store/products/selectors";
+import { selectPublishedProductsList } from "../store/products/selectors";
 import { updateFilter } from "../store/filter/actions";
-import { fetchProducts } from "../api";
+import { fetchPublishedProducts } from "../api";
 import { normalize } from "../utils/normalize";
 import { selectFilterAsQuery } from "../store/filter/selector";
 
-const useProducts = () => {
+const useFetchPublishedProducts = () => {
   const dispatch = useDispatch();
-  const products = useSelector(selectProductsList);
+  const products = useSelector(selectPublishedProductsList);
   const query = useSelector(selectFilterAsQuery);
 
   useEffect(() => {
-    fetchProducts("?" + query)
+    fetchPublishedProducts("&" + query)
       .then(({ totalItems, items }) => {
         const productsToSave = normalize(items);
         dispatch(getProductsSuccess(productsToSave));
@@ -33,4 +33,4 @@ const useProducts = () => {
   );
 };
 
-export default useProducts;
+export default useFetchPublishedProducts;

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Row } from "antd";
 import HomePage from "../pages/HomePage";
 import ProductsPage from "../pages/ProductsPage";
+import MyProductsPage from "../pages/MyProductsPage";
 import SingleProductPage from "../pages/SingleProductPage";
 import CartPage from "../pages/CartPage";
 import HeaderContainer from "./HeaderContainer";
@@ -20,6 +21,9 @@ function App() {
               </Route>
               <Route exact path="/products">
                 <ProductsPage />
+              </Route>
+              <Route exact path="/my-products">
+                <MyProductsPage />
               </Route>
               <Route exact path="/products/:id">
                 <SingleProductPage />

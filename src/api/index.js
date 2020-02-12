@@ -10,8 +10,22 @@ export const PRODUCTS_FILTER = {
   maxPrice: "maxPrice"
 };
 
+const headers = {
+  Authorization: process.env.REACT_APP_API_TOKEN,
+  "Content-Type": "application/json"
+};
+
 export const fetchProducts = (query = "") =>
   fetch(PRODUCTS_URL + query)
+    .then(res => res.json())
+    .catch(error => {
+      console.error("Fetch of products failed:", error);
+    });
+
+export const fetchPublishedProducts = (query = "") =>
+  fetch(PRODUCTS_URL + "?editable=true" + query, {
+    headers
+  })
     .then(res => res.json())
     .catch(error => {
       console.error("Fetch of products failed:", error);
@@ -26,10 +40,7 @@ export const fetchSingleProduct = id =>
 
 export const insertProduct = product =>
   fetch(INSERT_PRODUCT_URL, {
-    method: "patch",
-    headers: {
-      Authorization: process.env.REACT_APP_API_TOKEN,
-      "Content-Type": "application/json"
-    },
+    method: "post",
+    headers,
     body: JSON.stringify({ product })
   });

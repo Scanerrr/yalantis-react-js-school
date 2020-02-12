@@ -6,7 +6,7 @@ import CartWidget from "./Cart/CartWidget";
 const Header = ({ selectedPathName, cartProductsCount, total, showModal }) => {
   return (
     <Row type="flex" justify="space-between" align="middle">
-      <Col span={4}>
+      <Col>
         <Menu mode="horizontal" selectedKeys={[selectedPathName]}>
           <Menu.Item key="/">
             <Link to="/">
@@ -18,6 +18,12 @@ const Header = ({ selectedPathName, cartProductsCount, total, showModal }) => {
             <Link to="/products">
               <Icon type="shopping" />
               Catalogue
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="/my-products">
+            <Link to="/my-products">
+              <Icon type="container" />
+              My products
             </Link>
           </Menu.Item>
           <Menu.Item key="/cart">
