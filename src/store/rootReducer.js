@@ -4,13 +4,15 @@ import productsReducer from "./products/reducer";
 import singleProductReducer from "./singleProduct/reducer";
 import cartReducer from "./cart/reducer";
 import filterReducer from "./filter/reducer";
+import modalReducer from "./modal/reducer";
 
 const rootReducer = combineReducers({
   products: productsReducer,
   singleProduct: singleProductReducer,
   filter: filterReducer,
   cart: cartReducer,
-  form: formReducer
+  form: formReducer,
+  modal: modalReducer
 });
 
 export default rootReducer;

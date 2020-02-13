@@ -21,3 +21,8 @@ export const selectPublishedProductsList = createSelector(
   selectProductsList,
   products => products.filter(({ isEditable }) => isEditable)
 );
+
+export const selectProductToEdit = createSelector(
+  selectProducts,
+  state => state.byId[state.editModeProductId]
+);

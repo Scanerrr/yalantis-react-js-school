@@ -4,9 +4,13 @@ import { useDispatch } from "react-redux";
 import { message } from "antd";
 
 import { insertProduct } from "../api";
-import { publishProduct } from "../store/products/actions";
+import {
+  publishProduct,
+  updateProduct,
+  setProductEditMode
+} from "../store/products/actions";
 
-const usePublishProduct = () => {
+const usePublishProduct = (edit = false) => {
   const dispatch = useDispatch();
 
   const onSubmit = useCallback(
@@ -17,12 +21,20 @@ const usePublishProduct = () => {
           if (data.error && data.error.message) {
             message.error(data.error.message);
           } else {
-            dispatch(publishProduct(data));
+            message.success(
+              `Product was successfully ${edit ? "editted" : "published"}`
+            );
+            // TODO: refactor
+            if (edit) {
+              dispatch(updateProduct(data));
+              dispatch(setProductEditMode(null));
+            } else {
+              dispatch(publishProduct(data));
+            }
             dispatch(reset("product"));
-            message.success("Product was successfully published");
           }
         }),
-    [dispatch]
+    [dispatch, edit]
   );
 
   return useMemo(
