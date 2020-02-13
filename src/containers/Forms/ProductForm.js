@@ -17,6 +17,7 @@ const ProductForm = ({ handleSubmit, pristine, submitting, ...props }) => {
           name="name"
           component={Input}
           placeholder="Iphone Z"
+          disabled={submitting}
         />
         <Row type="flex" justify="space-between">
           <Col span={4}>
@@ -26,11 +27,17 @@ const ProductForm = ({ handleSubmit, pristine, submitting, ...props }) => {
               component={InputNumber}
               placeholder="999"
               parse={Number}
+              disabled={submitting}
               // min={0}
             />
           </Col>
           <Col span={16}>
-            <Field label="Origin" name="origin" component={Select}>
+            <Field
+              label="Origin"
+              name="origin"
+              component={Select}
+              disabled={submitting}
+            >
               <Option disabled value="">
                 Choose origin
               </Option>

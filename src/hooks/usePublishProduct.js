@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from "react";
+import { reset } from "redux-form";
 import { useDispatch } from "react-redux";
 import { message } from "antd";
 
@@ -17,6 +18,7 @@ const usePublishProduct = () => {
             message.error(data.error.message);
           } else {
             dispatch(publishProduct(data));
+            dispatch(reset("product"));
             message.success("Product was successfully published");
           }
         }),
