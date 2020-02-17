@@ -1,14 +1,14 @@
 import React from "react";
 import { Col, Row } from "antd";
 import Loader from "../ui/Loader";
-import useFetchProducts from "../hooks/useFetchProducts";
+import useFetchPublishedProducts from "../hooks/useFetchPublishedProducts";
 import ProductsList from "../containers/Products/ProductsList";
 import PaginationContainer from "../containers/Products/PaginationContainer";
 import ProductsFilter from "../containers/Products/ProductsFilter";
 import PerPageFilter from "../containers/Products/Filters/PerPageFilter";
 
 const ProductsPage = props => {
-  const { products } = useFetchProducts();
+  const { products } = useFetchPublishedProducts();
 
   if (!products.length) {
     return <Loader />;
@@ -20,7 +20,7 @@ const ProductsPage = props => {
         <ProductsFilter />
       </Col>
       <Col span={18}>
-        <h2 style={{ textAlign: "center" }}>Product List</h2>
+        <h2 style={{ textAlign: "center" }}>My pusblished product List</h2>
         <Row style={{ marginBottom: "20px" }} type="flex" justify="end">
           <PerPageFilter />
         </Row>

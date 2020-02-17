@@ -1,8 +1,8 @@
 import React from "react";
-import { Card } from "antd";
 import { Link } from "react-router-dom";
+import Card from "../../Card";
 import useAddToCartHandler from "../../../hooks/useAddToCartHandler";
-import AddToCartForm from "../../../containers/AddToCartForm";
+import AddToCartForm from "../../../containers/Forms/AddToCartForm";
 
 const ProductCard = ({ product }) => {
   const { id, name, price } = product;

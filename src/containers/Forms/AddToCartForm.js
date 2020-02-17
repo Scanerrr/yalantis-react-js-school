@@ -17,7 +17,7 @@ function AddToCartFormImpl({ form, transitProductQuantity, productId }) {
         )}
       </Form.Item>
       <Form.Item>
-        <Button htmlType="submit" type="primary">
+        <Button htmlType="submit" type="primary" ghost>
           Buy
         </Button>
       </Form.Item>

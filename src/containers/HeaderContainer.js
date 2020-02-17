@@ -6,19 +6,26 @@ import {
   selectCartTotal
 } from "../store/cart/selectors";
 import Header from "../ui/Header";
+import ProductModal from "./Products/ProductModal";
+import useModal from "../hooks/useModal";
 
 const HeaderContainer = ({ cartProductsCount, total }) => {
   const { pathname } = useLocation();
   const matchCart = useRouteMatch("/cart");
+  const { isModalOpen, toggle: toggleModal } = useModal(false);
 
   if (!!matchCart) return null;
 
   return (
-    <Header
-      selectedPathName={pathname}
-      cartProductsCount={cartProductsCount}
-      total={total}
-    />
+    <>
+      <Header
+        selectedPathName={pathname}
+        cartProductsCount={cartProductsCount}
+        total={total}
+        showModal={toggleModal}
+      />
+      <ProductModal visible={isModalOpen} onCancel={toggleModal} />
+    </>
   );
 };
 
