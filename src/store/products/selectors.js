@@ -26,3 +26,8 @@ export const selectProductToEdit = createSelector(
   selectProducts,
   state => state.byId[state.editModeProductId]
 );
+
+export const selectTotalItems = createSelector(
+  selectProducts,
+  ({ totalItems }) => totalItems
+);
