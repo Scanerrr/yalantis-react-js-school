@@ -1,5 +1,4 @@
 const PRODUCTS_URL = `${process.env.REACT_APP_API_ENDPOINT}/products`;
-const PRODUCT_URL = `${process.env.REACT_APP_API_ENDPOINT}/products`;
 
 export const PRODUCTS_FILTER = {
   page: "page",
@@ -31,14 +30,14 @@ export const fetchPublishedProducts = (query = "") =>
     });
 
 export const fetchSingleProduct = id =>
-  fetch(PRODUCT_URL + `/${id}`)
+  fetch(PRODUCTS_URL + `/${id}`)
     .then(res => res.json())
     .catch(error => {
       console.error("Fetch of single products failed:", error);
     });
 
 export const insertProduct = product =>
-  fetch(PRODUCT_URL, {
+  fetch(PRODUCTS_URL, {
     method: "post",
     headers,
     body: JSON.stringify({ product })
