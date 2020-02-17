@@ -67,5 +67,6 @@ const ProductForm = ({ handleSubmit, pristine, submitting, ...props }) => {
 
 export default reduxForm({
   form: "product",
-  validate: formValidators
+  validate: formValidators,
+  enableReinitialize: true
 })(ProductForm);
