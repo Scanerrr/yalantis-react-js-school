@@ -13,15 +13,15 @@ export const INITIAL_STATE = {
   totalItems: 50
 };
 
-const productsReducer = (state = INITIAL_STATE, { type, ...actionData }) => {
+const productsReducer = (state = INITIAL_STATE, { type, ...payload }) => {
   switch (type) {
     case GET_PRODUCTS_SUCCESS:
       return {
         ...state,
         byId: {
-          ...actionData.byId
+          ...payload.byId
         },
-        allIds: [...actionData.allIds]
+        allIds: [...payload.allIds]
       };
 
     case PUBLISH_PRODUCT:
@@ -29,11 +29,11 @@ const productsReducer = (state = INITIAL_STATE, { type, ...actionData }) => {
         ...state,
         byId: {
           ...state.byId,
-          [actionData.id]: {
-            ...actionData
+          [payload.id]: {
+            ...payload
           }
         },
-        allIds: [...state.allIds, actionData.id]
+        allIds: [...state.allIds, payload.id]
       };
 
     case UPDATE_PRODUCT:
@@ -41,8 +41,8 @@ const productsReducer = (state = INITIAL_STATE, { type, ...actionData }) => {
         ...state,
         byId: {
           ...state.byId,
-          [actionData.id]: {
-            ...actionData
+          [payload.id]: {
+            ...payload
           }
         }
       };
@@ -50,13 +50,13 @@ const productsReducer = (state = INITIAL_STATE, { type, ...actionData }) => {
     case SET_PRODUCT_EDIT_MODE:
       return {
         ...state,
-        editModeProductId: actionData.productId
+        editModeProductId: payload.productId
       };
 
     case UPDATE_TOTAL_ITEMS:
       return {
         ...state,
-        totalItems: actionData.totalItems
+        totalItems: payload.totalItems
       };
 
     default:

@@ -8,12 +8,12 @@ const INITIAL_STATE = {
   maxPrice: null
 };
 
-const filterReducer = (state = INITIAL_STATE, { type, ...actionData }) => {
+const filterReducer = (state = INITIAL_STATE, { type, ...payload }) => {
   switch (type) {
     case UPDATE_FILTER:
       return {
         ...state,
-        ...actionData
+        ...payload
       };
 
     default:
