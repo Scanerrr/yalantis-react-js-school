@@ -11,7 +11,6 @@ import { selectProductsList } from "../../store/products/selectors";
 const ProductsList = props => {
   useInjectSaga("productsListSaga", productsListSaga);
   const products = useSelector(selectProductsList, shallowEqual);
-  console.log(products);
 
   if (!products.length) {
     return <Loader />;

@@ -13,9 +13,10 @@ import { getProductsSuccess, updateTotalItems } from "../actions";
 import { updateFilter } from "../../filter/actions";
 import { selectFilterAsQuery } from "../../filter/selector";
 import { parse } from "query-string";
+import { UPDATE_FILTER } from "../../filter/actionTypes";
 
 export default function* productsListSaga() {
-  yield takeLatest(updateFilter, fetchProductsSaga);
+  yield takeLatest(UPDATE_FILTER, fetchProductsSaga);
 
   yield fork(initialSearchFromUrlSaga);
 }
@@ -34,9 +35,8 @@ function* fetchProductsSaga() {
 
     const productsToSave = normalize(items);
 
-    // TODO: fix loop
-    // yield put(getProductsSuccess(productsToSave));
-    // yield put(updateTotalItems(totalItems));
+    yield put(getProductsSuccess(productsToSave));
+    yield put(updateTotalItems(totalItems));
   } catch (err) {
     console.error(err);
   }
