@@ -5,7 +5,7 @@ import { Switch, Route } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import ProductsPage from "../pages/ProductsPage";
 import MyProductsPage from "../pages/MyProductsPage";
-import SingleProductPage from "../pages/SingleProductPage";
+import ProductDetailsPage from "../pages/ProductDetailsPage";
 import CartPage from "../pages/CartPage";
 
 const RouteContainer = props => (
@@ -20,7 +20,7 @@ const RouteContainer = props => (
       <MyProductsPage />
     </Route>
     <Route exact path="/products/:id">
-      <SingleProductPage />
+      <ProductDetailsPage />
     </Route>
     <Route exact path="/cart">
       <CartPage />

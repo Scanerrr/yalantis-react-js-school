@@ -1,13 +1,28 @@
 import {
-  GET_PRODUCTS_SUCCESS,
+  GET_PRODUCTS_LIST_SUCCESS,
   PUBLISH_PRODUCT,
   SET_PRODUCT_EDIT_MODE,
   UPDATE_PRODUCT,
-  UPDATE_TOTAL_ITEMS
+  UPDATE_TOTAL_ITEMS,
+  GET_PRODUCTS_LIST_LOADING,
+  GET_PRODUCTS_LIST_ERROR
 } from "./actionTypes";
 
-export function getProductsSuccess(data) {
-  return { type: GET_PRODUCTS_SUCCESS, ...data };
+// TODO: get rid of
+export function getProductsSuccess(payload) {
+  return { type: GET_PRODUCTS_LIST_SUCCESS, ...payload };
+}
+
+export function getProductsListSuccess(payload) {
+  return { type: GET_PRODUCTS_LIST_SUCCESS, payload };
+}
+
+export function getProductsListLoading(payload) {
+  return { type: GET_PRODUCTS_LIST_LOADING, payload };
+}
+
+export function getProductsListError(payload) {
+  return { type: GET_PRODUCTS_LIST_ERROR, payload };
 }
 
 export function publishProduct(data) {

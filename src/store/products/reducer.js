@@ -1,27 +1,44 @@
 import {
-  GET_PRODUCTS_SUCCESS,
+  GET_PRODUCTS_LIST_SUCCESS,
   PUBLISH_PRODUCT,
   SET_PRODUCT_EDIT_MODE,
   UPDATE_PRODUCT,
-  UPDATE_TOTAL_ITEMS
+  UPDATE_TOTAL_ITEMS,
+  GET_PRODUCTS_LIST_LOADING,
+  GET_PRODUCTS_LIST_ERROR
 } from "./actionTypes";
+import { normalize } from "../../utils/normalize";
 
 export const INITIAL_STATE = {
   byId: {},
   allIds: [],
   editModeProductId: null,
-  totalItems: 50
+  totalItems: 50,
+  loading: false,
+  error: ""
 };
 
-const productsReducer = (state = INITIAL_STATE, { type, ...payload }) => {
-  switch (type) {
-    case GET_PRODUCTS_SUCCESS:
+const productsReducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+    case GET_PRODUCTS_LIST_SUCCESS:
+      const normalizedProducts = normalize(action.payload?.items);
       return {
         ...state,
         byId: {
-          ...payload.byId
+          ...normalizedProducts.byId
         },
-        allIds: [...payload.allIds]
+        allIds: [...normalizedProducts.allIds],
+        totalItems: action.payload.totalItems
+      };
+    case GET_PRODUCTS_LIST_LOADING:
+      return {
+        ...state,
+        loading: action.payload
+      };
+    case GET_PRODUCTS_LIST_ERROR:
+      return {
+        ...state,
+        error: action.payload
       };
 
     case PUBLISH_PRODUCT:
@@ -29,11 +46,11 @@ const productsReducer = (state = INITIAL_STATE, { type, ...payload }) => {
         ...state,
         byId: {
           ...state.byId,
-          [payload.id]: {
-            ...payload
+          [action.payload.id]: {
+            ...action.payload
           }
         },
-        allIds: [...state.allIds, payload.id]
+        allIds: [...state.allIds, action.payload.id]
       };
 
     case UPDATE_PRODUCT:
@@ -41,8 +58,8 @@ const productsReducer = (state = INITIAL_STATE, { type, ...payload }) => {
         ...state,
         byId: {
           ...state.byId,
-          [payload.id]: {
-            ...payload
+          [action.payload.id]: {
+            ...action.payload
           }
         }
       };
@@ -50,13 +67,13 @@ const productsReducer = (state = INITIAL_STATE, { type, ...payload }) => {
     case SET_PRODUCT_EDIT_MODE:
       return {
         ...state,
-        editModeProductId: payload.productId
+        editModeProductId: action.payload.productId
       };
 
     case UPDATE_TOTAL_ITEMS:
       return {
         ...state,
-        totalItems: payload.totalItems
+        totalItems: action.payload.totalItems
       };
 
     default:

@@ -7,10 +7,13 @@ import {
   takeLatest
 } from "redux-saga/effects";
 
-import { normalize } from "../../../utils/normalize";
-import { getProductsSuccess, updateTotalItems } from "../actions";
+import {
+  getProductsListSuccess,
+  getProductsListLoading,
+  getProductsListError
+} from "../actions";
 import { updateFilter } from "../../filter/actions";
-import { selectFilterAsQuery } from "../../filter/selector";
+import { selectFilter } from "../../filter/selector";
 import { parse, stringify } from "query-string";
 import { UPDATE_FILTER } from "../../filter/actionTypes";
 import { fetchProductsListSaga } from "../../network/services/products";
@@ -23,11 +26,9 @@ export default function* productsListSaga() {
 
 function* productsSearchSaga() {
   // TODO: filter
-  const searchParams = yield select(selectFilterAsQuery);
+  const searchParams = yield select(selectFilter);
 
-  const searchInUrl = stringify(searchParams, {
-    arrayFormat: "comma"
-  });
+  const searchInUrl = stringify(searchParams);
 
   const history = yield getContext("history");
 
@@ -35,15 +36,16 @@ function* productsSearchSaga() {
     search: searchInUrl
   });
 
+  yield put(getProductsListLoading(true));
+
   try {
     const data = yield call(fetchProductsListSaga, searchParams);
-    debugger;
-    // const productsToSave = normalize(items);
 
-    // yield put(getProductsSuccess(productsToSave));
-    // yield put(updateTotalItems(totalItems));
-  } catch (err) {
-    console.error(err);
+    yield put(getProductsListSuccess(data));
+  } catch (error) {
+    yield put(getProductsListError(error?.message ?? error));
+  } finally {
+    yield put(getProductsListLoading(false));
   }
 }
 

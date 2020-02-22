@@ -17,6 +17,15 @@ export const selectProductsList = createSelector(
   (products, allIds = []) => allIds.map(id => products[id])
 );
 
+export const selectProductsListPage = createSelector(
+  [selectProductsList, selectProducts],
+  (products, { loading, error }) => ({
+    loading,
+    error,
+    products
+  })
+);
+
 export const selectPublishedProductsList = createSelector(
   selectProductsList,
   products => products.filter(({ isEditable }) => isEditable)
@@ -27,6 +36,7 @@ export const selectProductToEdit = createSelector(
   state => state.byId[state.editModeProductId]
 );
 
+// TODO: get rid of
 export const selectTotalItems = createSelector(
   selectProducts,
   ({ totalItems }) => totalItems

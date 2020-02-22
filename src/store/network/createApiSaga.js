@@ -31,6 +31,8 @@ const createApiSaga = ({ buildReqConfig, addApiKey = false, alias }) =>
           alias
         })
       );
+
+      return response.data;
     } catch (error) {
       yield put(
         apiCallFailure({

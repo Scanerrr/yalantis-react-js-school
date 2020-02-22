@@ -19,11 +19,11 @@ export default function configureStore({ history, rootSaga }) {
 function createSagaInjector(runSaga, rootSaga) {
   const injectedSagas = new Map();
   const isInjected = key => injectedSagas.has(key);
-  const injectSaga = (key, saga) => {
+  const injectSaga = (key, saga, ...args) => {
     if (isInjected(key)) {
       return;
     }
-    const task = runSaga(saga);
+    const task = runSaga(saga, ...args);
     injectedSagas.set(key, task);
   };
   const ejectSaga = key => {

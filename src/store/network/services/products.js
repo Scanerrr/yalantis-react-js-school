@@ -9,7 +9,7 @@ export const fetchProductsListSaga = createApiSaga({
   })
 });
 
-export const fetchProductDetails = createApiSaga({
+export const fetchProductDetailsSaga = createApiSaga({
   alias: "FETCH_PRODUCT_DETAILS",
   buildReqConfig: productId => ({
     url: `/products/${productId}`,
