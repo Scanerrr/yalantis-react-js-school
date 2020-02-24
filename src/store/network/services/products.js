@@ -39,13 +39,3 @@ export const insertProductSaga = createApiSaga({
     data: product
   })
 });
-
-export const updateProductSaga = createApiSaga({
-  alias: "UPDATE_PRODUCT_SAGA",
-  addApiKey: true,
-  buildReqConfig: product => ({
-    url: "/products",
-    method: "PATCH",
-    params: product
-  })
-});

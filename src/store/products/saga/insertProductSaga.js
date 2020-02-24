@@ -8,10 +8,7 @@ import {
   setProductEdit,
   updateProductSuccess
 } from "../actions";
-import {
-  insertProductSaga,
-  updateProductSaga
-} from "../../network/services/products";
+import { insertProductSaga } from "../../network/services/products";
 import { selectProductToEdit } from "../selectors";
 
 export default function* handleUpdateProductSaga(dataValues) {
@@ -19,11 +16,12 @@ export default function* handleUpdateProductSaga(dataValues) {
 
   try {
     const edit = yield select(selectProductToEdit);
+
+    const product = yield call(insertProductSaga, dataValues);
+
     if (edit) {
-      const product = yield call(insertProductSaga, dataValues);
       yield put(updateProductSuccess(product));
     } else {
-      const product = yield call(insertProductSaga, dataValues);
       yield put(insertProductSuccess(product));
       yield put(reset("product"));
       yield put(setProductEdit(null));
