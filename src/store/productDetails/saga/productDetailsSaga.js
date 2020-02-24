@@ -2,21 +2,21 @@ import { call, put } from "redux-saga/effects";
 
 import { fetchProductDetailsSaga } from "../../network/services/products";
 import {
-  getProductDetailsLoading,
-  getProductDetailsSuccess,
-  getProductDetailsError
+  productDetailsLoading,
+  productDetailsSuccess,
+  productDetailsError
 } from "../actions";
 
 export default function* productDetailsSaga(productId) {
-  yield put(getProductDetailsLoading(true));
+  yield put(productDetailsLoading(true));
 
   try {
     const data = yield call(fetchProductDetailsSaga, productId);
 
-    yield put(getProductDetailsSuccess(data));
+    yield put(productDetailsSuccess(data));
   } catch (error) {
-    yield put(getProductDetailsError(error?.message ?? error));
+    yield put(productDetailsError(error?.message ?? error));
   } finally {
-    yield put(getProductDetailsLoading(false));
+    yield put(productDetailsLoading(false));
   }
 }

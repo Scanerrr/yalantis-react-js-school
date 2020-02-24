@@ -14,11 +14,11 @@ const createApiSaga = ({ buildReqConfig, addApiKey = false, alias }) =>
     );
 
     if (addApiKey) {
-      if (!reqConfig.params) {
-        reqConfig.params = {};
+      if (!reqConfig?.headers?.common) {
+        reqConfig.headers = { common: {} };
       }
-
-      reqConfig.params.key = process.env.REACT_APP_API_TOKEN;
+      reqConfig.headers.common["Authorization"] =
+        process.env.REACT_APP_API_TOKEN;
     }
 
     try {

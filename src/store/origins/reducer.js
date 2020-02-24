@@ -1,28 +1,30 @@
 import {
-  PRODUCT_DETAILS_SUCCESS,
-  PRODUCT_DETAILS_LOADING,
-  PRODUCT_DETAILS_ERROR
+  PRODUCT_ORIGINS_SUCCESS,
+  PRODUCT_ORIGINS_LOADING,
+  PRODUCT_ORIGINS_ERROR
 } from "./actionTypes";
 
 export const INITIAL_STATE = {
-  product: null,
+  origins: [],
   loading: false,
   error: ""
 };
 
-const productDetailsReducer = (state = INITIAL_STATE, action) => {
+const originsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case PRODUCT_DETAILS_SUCCESS:
+    case PRODUCT_ORIGINS_SUCCESS:
       return {
         ...state,
-        product: action.payload
+        origins: action.payload
       };
-    case PRODUCT_DETAILS_LOADING:
+
+    case PRODUCT_ORIGINS_LOADING:
       return {
         ...state,
         loading: action.payload
       };
-    case PRODUCT_DETAILS_ERROR:
+
+    case PRODUCT_ORIGINS_ERROR:
       return {
         ...state,
         error: action.payload
@@ -33,4 +35,4 @@ const productDetailsReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default productDetailsReducer;
+export default originsReducer;

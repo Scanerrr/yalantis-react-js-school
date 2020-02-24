@@ -5,9 +5,9 @@ import { Empty } from "antd";
 
 import Error from "../ui/Error";
 import useAddToCartHandler from "../hooks/useAddToCartHandler";
-import ProductDetails from "../ui/Products/ProductDetails/ProductDetails";
+import ProductDetails from "../ui/Products/ProductDetails";
 import AddToCartForm from "../containers/Forms/AddToCartForm";
-import useInjectSaga from "../hooks/useInjectSaga";
+import { useInjectSaga } from "../hooks/useSaga";
 import productDetailsSaga from "../store/productDetails/saga/productDetailsSaga";
 import { selectProductDetailsPage } from "../store/productDetails/selectors";
 import Loader from "../ui/Loader";

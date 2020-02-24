@@ -1,31 +1,34 @@
 import {
   call,
+  delay,
   fork,
   getContext,
   put,
   select,
   takeLatest
 } from "redux-saga/effects";
+import { parse, stringify } from "query-string";
 
 import {
-  getProductsListSuccess,
-  getProductsListLoading,
-  getProductsListError
+  productsListSuccess,
+  productsListLoading,
+  productsListError
 } from "../actions";
 import { updateFilter } from "../../filter/actions";
 import { selectFilter } from "../../filter/selector";
-import { parse, stringify } from "query-string";
 import { UPDATE_FILTER } from "../../filter/actionTypes";
-import { fetchProductsListSaga } from "../../network/services/products";
+import {
+  fetchProductsListSaga,
+  fetchMyProductsListSaga
+} from "../../network/services/products";
 
-export default function* productsListSaga() {
-  yield takeLatest(UPDATE_FILTER, productsSearchSaga);
+export default function* productsListSaga(editable = false) {
+  yield takeLatest(UPDATE_FILTER, productsSearchSaga, editable);
 
   yield fork(initialSearchFromUrlSaga);
 }
 
-function* productsSearchSaga() {
-  // TODO: filter
+function* productsSearchSaga(editable) {
   const searchParams = yield select(selectFilter);
 
   const searchInUrl = stringify(searchParams);
@@ -36,16 +39,23 @@ function* productsSearchSaga() {
     search: searchInUrl
   });
 
-  yield put(getProductsListLoading(true));
+  yield put(productsListLoading(true));
+
+  yield delay(1000);
 
   try {
-    const data = yield call(fetchProductsListSaga, searchParams);
+    let fetchProducts = fetchProductsListSaga;
 
-    yield put(getProductsListSuccess(data));
+    if (editable) {
+      fetchProducts = fetchMyProductsListSaga;
+    }
+
+    const data = yield call(fetchProducts, searchParams);
+    yield put(productsListSuccess(data));
   } catch (error) {
-    yield put(getProductsListError(error?.message ?? error));
+    yield put(productsListError(error?.message ?? error));
   } finally {
-    yield put(getProductsListLoading(false));
+    yield put(productsListLoading(false));
   }
 }
 

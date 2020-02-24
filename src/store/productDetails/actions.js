@@ -1,17 +1,17 @@
 import {
-  GET_PRODUCT_DETAILS_SUCCESS,
-  GET_PRODUCT_DETAILS_LOADING,
-  GET_PRODUCT_DETAILS_ERROR
+  PRODUCT_DETAILS_SUCCESS,
+  PRODUCT_DETAILS_LOADING,
+  PRODUCT_DETAILS_ERROR
 } from "./actionTypes";
 
-export function getProductDetailsSuccess(payload) {
-  return { type: GET_PRODUCT_DETAILS_SUCCESS, payload };
+export function productDetailsSuccess(payload) {
+  return { type: PRODUCT_DETAILS_SUCCESS, payload };
 }
 
-export function getProductDetailsLoading(payload) {
-  return { type: GET_PRODUCT_DETAILS_LOADING, payload };
+export function productDetailsLoading(payload) {
+  return { type: PRODUCT_DETAILS_LOADING, payload };
 }
 
-export function getProductDetailsError(payload) {
-  return { type: GET_PRODUCT_DETAILS_ERROR, payload };
+export function productDetailsError(payload) {
+  return { type: PRODUCT_DETAILS_ERROR, payload };
 }

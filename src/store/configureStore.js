@@ -34,5 +34,5 @@ function createSagaInjector(runSaga, rootSaga) {
     injectedSagas.delete(key);
   };
   injectSaga("root", rootSaga);
-  return { injectSaga, ejectSaga };
+  return { injectSaga, ejectSaga, runSaga };
 }

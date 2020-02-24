@@ -3,17 +3,17 @@ import { UPDATE_FILTER } from "./actionTypes";
 const INITIAL_STATE = {
   page: 1,
   perPage: 20,
-  origins: null,
+  origins: [],
   minPrice: null,
   maxPrice: null
 };
 
-const filterReducer = (state = INITIAL_STATE, { type, ...payload }) => {
-  switch (type) {
+const filterReducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
     case UPDATE_FILTER:
       return {
         ...state,
-        ...payload
+        ...action.payload
       };
 
     default:

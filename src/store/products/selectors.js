@@ -26,17 +26,20 @@ export const selectProductsListPage = createSelector(
   })
 );
 
-export const selectPublishedProductsList = createSelector(
-  selectProductsList,
-  products => products.filter(({ isEditable }) => isEditable)
-);
-
 export const selectProductToEdit = createSelector(
   selectProducts,
-  state => state.byId[state.editModeProductId]
+  state => state.byId[state.edit.productId]
 );
 
-// TODO: get rid of
+export const selectProductEditEntity = createSelector(
+  [selectProducts, selectProductToEdit],
+  (state, product) => ({
+    product,
+    loading: state.edit.loading,
+    error: state.edit.error
+  })
+);
+
 export const selectTotalItems = createSelector(
   selectProducts,
   ({ totalItems }) => totalItems

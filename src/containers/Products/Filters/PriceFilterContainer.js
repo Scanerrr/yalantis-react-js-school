@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PRODUCTS_FILTER } from "../../../api";
+
 import PriceFilter from "../../../ui/Products/Filter/PriceFilter";
 
 const MIN_PRICE = 0;
@@ -16,8 +16,8 @@ const PriceFilterContainer = ({ filter }) => {
 
   const filterPrice = () => {
     filter({
-      [PRODUCTS_FILTER.minPrice]: minPriceValue,
-      [PRODUCTS_FILTER.maxPrice]: maxPriceValue
+      minPrice: minPriceValue,
+      maxPrice: maxPriceValue
     });
   };
 

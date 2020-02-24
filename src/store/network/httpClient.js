@@ -3,7 +3,7 @@ import { stringify } from "query-string";
 
 const httpClient = axios.create({
   baseURL: process.env.REACT_APP_API_ENDPOINT,
-  paramsSerializer: params => stringify(params)
+  paramsSerializer: params => stringify(params, { arrayFormat: "comma" })
 });
 
 export default httpClient;

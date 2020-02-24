@@ -12,3 +12,8 @@ export const selectFilterPage = createSelector(
   selectFilter,
   ({ page }) => page
 );
+
+export const selectFilterOrigin = createSelector(
+  selectFilter,
+  ({ origins }) => origins
+);

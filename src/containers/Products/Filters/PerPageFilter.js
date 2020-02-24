@@ -1,14 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Select } from "antd";
-import { PRODUCTS_FILTER } from "../../../api";
+
 import { selectFilter } from "../../../store/filter/selector";
 import { updateFilter } from "../../../store/filter/actions";
 
 const PerPageFilter = ({ perPage, filter }) => {
   const filterPerPage = value => {
     filter({
-      [PRODUCTS_FILTER.perPage]: value
+      perPage: value
     });
   };
   return (

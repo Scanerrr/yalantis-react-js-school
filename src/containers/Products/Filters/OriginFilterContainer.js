@@ -1,41 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { PRODUCTS_FILTER } from "../../../api";
-import OriginFilter from "../../../ui/Products/Filter/OriginFilter";
+import React from "react";
+import { useSelector } from "react-redux";
 
-const ORIGINS = [
-  {
-    label: "europe",
-    value: "europe"
-  },
-  {
-    label: "usa",
-    value: "usa"
-  },
-  {
-    label: "africa",
-    value: "africa"
-  },
-  {
-    label: "asia",
-    value: "asia"
-  }
-];
+import OriginFilter from "../../../ui/Products/Filter/OriginFilter";
+import { useInjectSaga } from "../../../hooks/useSaga";
+import productOriginsSaga from "../../../store/origins/saga/productOriginsSaga";
+import { selectOrigins } from "../../../store/origins/selectors";
+import { selectFilterOrigin } from "../../../store/filter/selector";
 
 const OriginFilterContainer = ({ filter }) => {
-  const [origins, setOrigins] = useState([]);
+  useInjectSaga("productOrigins", productOriginsSaga);
+
+  const ORIGINS = useSelector(selectOrigins).map(({ displayName, value }) => ({
+    label: displayName,
+    value
+  }));
+
+  const selectedOrigins = useSelector(selectFilterOrigin);
 
   const onChange = values => {
-    setOrigins(values);
+    filter({
+      origins: values
+    });
   };
 
-  useEffect(() => {
-    filter({
-      [PRODUCTS_FILTER.origins]: origins
-    });
-  }, [filter, origins]);
-
   return (
-    <OriginFilter options={ORIGINS} values={origins} onChange={onChange} />
+    <OriginFilter
+      options={ORIGINS}
+      values={selectedOrigins}
+      onChange={onChange}
+    />
   );
 };
 
