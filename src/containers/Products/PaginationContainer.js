@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Pagination } from "antd";
-import { PRODUCTS_FILTER } from "../../api";
 import { selectTotalItems } from "../../store/products/selectors";
 import { selectFilter } from "../../store/filter/selector";
 import { updateFilter } from "../../store/filter/actions";
@@ -9,7 +8,7 @@ import { updateFilter } from "../../store/filter/actions";
 const PaginationContainer = ({ filter, perPage, currentPage, totalItems }) => {
   const filterCurrentPage = value => {
     filter({
-      [PRODUCTS_FILTER.page]: value
+      page: value
     });
   };
   return (

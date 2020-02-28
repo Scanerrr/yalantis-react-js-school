@@ -17,14 +17,27 @@ export const selectProductsList = createSelector(
   (products, allIds = []) => allIds.map(id => products[id])
 );
 
-export const selectPublishedProductsList = createSelector(
-  selectProductsList,
-  products => products.filter(({ isEditable }) => isEditable)
+export const selectProductsListPage = createSelector(
+  [selectProductsList, selectProducts],
+  (products, { loading, error }) => ({
+    loading,
+    error,
+    products
+  })
 );
 
 export const selectProductToEdit = createSelector(
   selectProducts,
-  state => state.byId[state.editModeProductId]
+  state => state.byId[state.edit.productId]
+);
+
+export const selectProductEditEntity = createSelector(
+  [selectProducts, selectProductToEdit],
+  (state, product) => ({
+    product,
+    loading: state.edit.loading,
+    error: state.edit.error
+  })
 );
 
 export const selectTotalItems = createSelector(

@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Button, Icon } from "antd";
-import Card from "../../Card";
-import { setProductEditMode } from "../../../store/products/actions";
-import { toggleModal as toggle } from "../../../store/modal/actions";
+import Card from "../Card";
+import { setProductEdit } from "../../store/products/actions";
+import { toggleModal as toggle } from "../../store/modal/actions";
 
 const PublishProductCard = ({ product, toggleModal, setEditMode }) => {
   const { id, name, price } = product;
@@ -28,7 +28,7 @@ const PublishProductCard = ({ product, toggleModal, setEditMode }) => {
 
 const mapDispatchToProps = {
   toggleModal: toggle,
-  setEditMode: setProductEditMode
+  setEditMode: setProductEdit
 };
 
 const enhancer = connect(null, mapDispatchToProps);

@@ -1,27 +1,42 @@
 import {
-  GET_PRODUCTS_SUCCESS,
-  PUBLISH_PRODUCT,
-  SET_PRODUCT_EDIT_MODE,
-  UPDATE_PRODUCT,
-  UPDATE_TOTAL_ITEMS
+  PRODUCTS_LIST_SUCCESS,
+  SET_PRODUCT_EDIT,
+  PRODUCTS_LIST_LOADING,
+  PRODUCTS_LIST_ERROR,
+  INSERT_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_ERROR,
+  UPDATE_PRODUCT_LOADING
 } from "./actionTypes";
 
-export function getProductsSuccess(data) {
-  return { type: GET_PRODUCTS_SUCCESS, ...data };
+export function productsListSuccess(payload) {
+  return { type: PRODUCTS_LIST_SUCCESS, payload };
 }
 
-export function publishProduct(data) {
-  return { type: PUBLISH_PRODUCT, ...data };
+export function productsListLoading(payload) {
+  return { type: PRODUCTS_LIST_LOADING, payload };
 }
 
-export function updateProduct(data) {
-  return { type: UPDATE_PRODUCT, ...data };
+export function productsListError(payload) {
+  return { type: PRODUCTS_LIST_ERROR, payload };
 }
 
-export function setProductEditMode(productId) {
-  return { type: SET_PRODUCT_EDIT_MODE, productId };
+export function insertProductSuccess(payload) {
+  return { type: INSERT_PRODUCT_SUCCESS, payload };
 }
 
-export function updateTotalItems(totalItems) {
-  return { type: UPDATE_TOTAL_ITEMS, totalItems };
+export function updateProductSuccess(payload) {
+  return { type: UPDATE_PRODUCT_SUCCESS, payload };
+}
+
+export function updateProductLoading(payload) {
+  return { type: UPDATE_PRODUCT_LOADING, payload };
+}
+
+export function updateProductError(payload) {
+  return { type: UPDATE_PRODUCT_ERROR, payload };
+}
+
+export function setProductEdit(payload) {
+  return { type: SET_PRODUCT_EDIT, payload };
 }

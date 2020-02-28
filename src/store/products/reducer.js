@@ -1,63 +1,108 @@
 import {
-  GET_PRODUCTS_SUCCESS,
-  PUBLISH_PRODUCT,
-  SET_PRODUCT_EDIT_MODE,
-  UPDATE_PRODUCT,
-  UPDATE_TOTAL_ITEMS
+  PRODUCTS_LIST_SUCCESS,
+  SET_PRODUCT_EDIT,
+  PRODUCTS_LIST_LOADING,
+  PRODUCTS_LIST_ERROR,
+  INSERT_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_LOADING,
+  UPDATE_PRODUCT_ERROR
 } from "./actionTypes";
+import { normalize } from "../../utils/normalize";
 
 export const INITIAL_STATE = {
   byId: {},
   allIds: [],
-  editModeProductId: null,
-  totalItems: 50
+  edit: {
+    productId: null,
+    loading: false,
+    error: ""
+  },
+  totalItems: 50,
+  loading: false,
+  error: ""
 };
 
-const productsReducer = (state = INITIAL_STATE, { type, ...payload }) => {
-  switch (type) {
-    case GET_PRODUCTS_SUCCESS:
+const productsReducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+    case PRODUCTS_LIST_SUCCESS:
+      const normalizedProducts = normalize(action.payload?.items);
       return {
         ...state,
         byId: {
-          ...payload.byId
+          ...normalizedProducts.byId
         },
-        allIds: [...payload.allIds]
+        allIds: [...normalizedProducts.allIds],
+        totalItems: action.payload.totalItems
+      };
+    case PRODUCTS_LIST_LOADING:
+      return {
+        ...state,
+        loading: action.payload
+      };
+    case PRODUCTS_LIST_ERROR:
+      return {
+        ...state,
+        error: action.payload
       };
 
-    case PUBLISH_PRODUCT:
+    case INSERT_PRODUCT_SUCCESS:
       return {
         ...state,
         byId: {
           ...state.byId,
-          [payload.id]: {
-            ...payload
+          [action.payload.id]: {
+            ...action.payload
           }
         },
-        allIds: [...state.allIds, payload.id]
+        allIds: [...state.allIds, action.payload.id]
       };
 
-    case UPDATE_PRODUCT:
+    case UPDATE_PRODUCT_SUCCESS:
       return {
         ...state,
         byId: {
           ...state.byId,
-          [payload.id]: {
-            ...payload
+          [action.payload.id]: {
+            ...action.payload
           }
         }
       };
 
-    case SET_PRODUCT_EDIT_MODE:
+    case UPDATE_PRODUCT_LOADING:
       return {
         ...state,
-        editModeProductId: payload.productId
+        edit: {
+          ...state.edit,
+          loading: action.payload
+        }
+      };
+    case UPDATE_PRODUCT_ERROR:
+      return {
+        ...state,
+        edit: {
+          ...state.edit,
+          error: action.payload
+        }
       };
 
-    case UPDATE_TOTAL_ITEMS:
-      return {
-        ...state,
-        totalItems: payload.totalItems
-      };
+    case SET_PRODUCT_EDIT:
+      if (!action.payload) {
+        return {
+          ...state,
+          edit: {
+            ...INITIAL_STATE.edit
+          }
+        };
+      } else {
+        return {
+          ...state,
+          edit: {
+            ...state.edit,
+            productId: action.payload
+          }
+        };
+      }
 
     default:
       return state;
